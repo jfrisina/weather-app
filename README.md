@@ -6,7 +6,7 @@
 * JavaScript
 * React
 * Redux
-* Tomorrow.io Weather API
+* Tomorrow.io REST Weather API
 
 ## Approach
 
