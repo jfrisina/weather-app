@@ -1,4 +1,5 @@
 # Weather App
+
 ## Tech Used
 * HTML
 * CSS
