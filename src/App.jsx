@@ -1,34 +1,51 @@
-// imports
-import { useState } from 'react'
+/* IMPORTS -----------------------------------------------------*/
+// import files 
 import './App.css'
-import dotenv from 'dotenv'
+
+// import packages
 import axios from 'axios'
 
+// imports hooks
+import { useState } from 'react'
+
+// import components
+import Form from './components/Form'
+import ForecastDisplay from './components/ForecastDisplay';
+
+/* API -----------------------------------------------------*/
 // load environment variables from .env into process.env
-dotenv.config();
+const API_KEY = import.meta.env.VITE_apiKey;
+const baseURL = 'https://api.tomorrow.io/v4/weather';
+const forecastEndpoint = 'https://api.tomorrow.io/v4/weather/forecast';
+const realtimeEndpoint = 'https://api.tomorrow.io/v4/weather/realtime';
 
-// API 
-const API_KEY = process.env.API_KEY;
-
-const baseURL = 'https://api.tomorrow.io/';
-
-// set up the http header, which is a key-value pair that provides additional information about the request or the response. Used to transmit various types of metadata between the client and the server.
-
-
-// main app code
+/* MAIN APP LOGIC -----------------------------------------------------*/
 function App() {
-  const [count, setCount] = useState(0)
+  // set initial state
+   const [locationData, setLocationData] = useState(null);
 
-  // display
+  async function getWeather(location) {
+    try {
+      // make api call and save response into variable
+      const response = await axios.get(`${forecastEndpoint}?location=${location}&apikey=${API_KEY}`);
+      
+      // save into state
+      setLocationData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+/* MAIN APP DISPLAY  --------------------------------------------------*/
   return (
     <>
-      <h1>What's up with the Weather</h1>
-        {/* <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button> */}
-
+      <h1>What's the Weather in...</h1>
+      <Form locationSearch={getWeather} />
+      <ForecastDisplay />
+      {locationData? <ForecastDisplay location={locationData} /> : <p>Nothing to show yet</p>}
     </>
   )
 }
 
+/* EXPORT -----------------------------------------------------*/
 export default App
