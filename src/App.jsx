@@ -41,8 +41,7 @@ function App() {
     <>
       <h1>What's the Weather in...</h1>
       <Form locationSearch={getWeather} />
-      <ForecastDisplay />
-      {locationData? <ForecastDisplay location={locationData} /> : <p>Nothing to show yet</p>}
+      <ForecastDisplay location={locationData}/>
     </>
   )
 }

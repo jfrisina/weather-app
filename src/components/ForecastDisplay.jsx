@@ -5,7 +5,7 @@ const ForecastDisplay = ({ location }) => {
     const loaded = () => {
         return (
             <>
-                <h1>{location.name}</h1>
+                <h1>{location.location.name}</h1>
             </>
         )
     }
